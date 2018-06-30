@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <style>
+            #active-container {
+                height: 200px;
+                width: 200px;
+                background-color: black;
+            }
+
+            #active {
+                position: relative;
+                width: 200px;
+                height: 30px;
+                background-color: skyblue;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div id="active-container">
+                        <div id="active"></div>
+                    </div>
+                </div>
+                <div class="col">
+                    <button class="btn btn-success" onclick="start()">Start</button>
+                    <button class="btn btn-primary" onclick="init()">Stop</button>
+                    <div class="form-group">
+                        <label for="step">Step</label>
+                        <input type="range" class="form-control-range" id="step" min="0.04" max="0.2" step="0.01" onchange="changeStep()">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            let active = document.getElementById('active');
+            let $step = document.getElementById('step');
+            let forward, counter, speed, timeout, step;
+
+            function init() {
+                clearTimeout(timeout);
+                forward = true;
+                counter = 0;
+                speed = 100;
+                step = 0.06;
+                $step.value = step;
+            }
+
+            function start() {
+                counter += step;
+                if (counter % 10 === 0) {
+                    forward = !forward;
+                }
+                console.log(counter);
+                timeout = setTimeout(start, speed);
+                active.style.top = 60 * Math.sin( counter ) + 80 + 'px';
+            }
+
+            function changeStep() {
+                step = parseFloat($step.value);
+            }
+
+            init();
+            start();
+        </script>
+    </body>
+</html>
