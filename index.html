@@ -1,38 +1,52 @@
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <style>
             #active-container {
                 height: 200px;
-                width: 200px;
-                background-color: black;
+                width: 100%;
+                background-color: #6f9deb;
             }
 
             #active {
                 position: relative;
-                width: 200px;
+                width: 100%;
                 height: 30px;
-                background-color: skyblue;
+                background-color: rgba(0, 0, 0, 0.1);
+            }
+
+            .btn {
+                display: inline;
+                width: 48%;
             }
         </style>
     </head>
 
     <body>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <div class="container">
             <div class="row">
-                <div class="col-md-6 col-sm-12">
-                    <div id="active-container">
-                        <div id="active"></div>
-                    </div>
-                </div>
-                <div class="col">
-                    <button class="btn btn-success" onclick="start()">Start</button>
-                    <button class="btn btn-primary" onclick="init()">Stop</button>
-                    <div class="form-group">
-                        <label for="step">Step</label>
-                        <input type="range" class="form-control-range" id="step" min="0.04" max="0.2" step="0.01" onchange="changeStep()">
+                <div class="col-sm-3 offset-md-5">
+                    <div class="jumbotron">
+                        <div class="row">
+                            <div class="col">
+                                <div id="active-container">
+                                    <div id="active"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="step">Step</label>
+                                    <input type="range" class="form-control-range" id="step" min="0.04" max="0.2" step="0.01" onchange="changeStep()">
+                                </div>
+                                <button class="btn btn-success" onclick="start()">Start</button>
+                                <button class="btn btn-primary" onclick="init()">Stop</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -54,12 +68,16 @@
 
             function start() {
                 counter += step;
-                if (counter % 10 === 0) {
+                if (counter % step === 0) {
+
                     forward = !forward;
                 }
                 console.log(counter);
                 timeout = setTimeout(start, speed);
-                active.style.top = 60 * Math.sin( counter ) + 80 + 'px';
+                let number = 70 * Math.sin( counter ) + 90;
+                active.style.top = number + 'px';
+                console.log(number);
+                active.textContent = Math.sin(counter) > 0 ? 'Breath in' : 'Breath out'
             }
 
             function changeStep() {
