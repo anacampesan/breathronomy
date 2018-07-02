@@ -66,6 +66,7 @@
                 $step.value = step;
             }
 
+            let last, number;
             function start() {
                 counter += step;
                 if (counter % step === 0) {
@@ -74,10 +75,10 @@
                 }
                 console.log(counter);
                 timeout = setTimeout(start, speed);
-                let number = 70 * Math.sin( counter ) + 90;
+                last = number;
+                number = 70 * Math.sin( counter ) + 90;
                 active.style.top = number + 'px';
-                console.log(number);
-                active.textContent = Math.sin(counter) > 0 ? 'Breath in' : 'Breath out'
+                active.textContent = last > number ? 'Breath in' : 'Breath out'
             }
 
             function changeStep() {
